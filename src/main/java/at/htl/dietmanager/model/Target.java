@@ -15,17 +15,21 @@ public class Target {
     @Column(name = "T_MULTIPLIER")
     private float multiplier;
 
-    public Target(float multiplier) {
+    @Column(name = "T_DESIGNATION")
+    private String designation;
+
+    @Column(name = "T_DESCRIPTION")
+    private String description;
+
+    public Target(float multiplier, String designation, String description) {
         this.multiplier = multiplier;
+        this.designation = designation;
+        this.description = description;
     }
     public Target(){}
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public float getMultiplier() {

@@ -30,13 +30,36 @@ public class Food {
     }
 
     public Food(String name, String description, float kcal, float fats, float carbs, float proteins) {
-
+        this(name, description, kcal);
         this.name = name;
         this.description = description;
         this.kcal = kcal;
         this.fats = fats;
         this.carbs = carbs;
         this.proteins = proteins;
+    }
+
+    public Food(String name, String description, float fats, float carbs, float proteins) {
+        this(name, fats, carbs, proteins);
+        this.description = description;
+    }
+
+    public Food(String name, String description, float kcal) {
+        this(name, kcal);
+        this.description = description;
+    }
+
+    public Food(String name, float kcal) {
+        this.name = name;
+        this.kcal = kcal;
+    }
+
+    public Food(String name, float fats, float carbs, float proteins) {
+        this.name = name;
+        this.fats = fats;
+        this.carbs = carbs;
+        this.proteins = proteins;
+        this.kcal = 9.3f * fats + 4.1f * carbs + 4.1f * proteins;
     }
 
 
@@ -64,10 +87,6 @@ public class Food {
         return proteins;
     }
 
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public void setName(String name) {
         this.name = name;
