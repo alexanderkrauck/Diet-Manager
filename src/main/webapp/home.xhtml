@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+    <link rel="shortcut icon" type="image/x-icon" href="headerimgleft.png"/>
+    <title>Diet-Manager</title>
+</h:head>
+<h:body>
+    <h:form>
+        <!--<p:growl id="messages"/>-->
+
+        <p:menubar>
+            <p:menuitem value="Home" icon="fa fa-home"/>
+            <p:menuitem value="About" url="/faces/about.xhtml" icon="fa fa-info-circle"/>
+
+            <f:facet name="options">
+                <p:inputText style="margin-right:4px" placeholder="Username"/>
+                <p:inputText style="margin-right:4px" placeholder="Password"/>
+                <p:commandButton style="margin-right:15px" type="button" value="Login" icon="fa fa-male" actionListener="#{userController.login}"/>
+                <p:button type="button" value="Sign Up" icon="fa fa-child" outcome="/faces/signup/basicdata.xhtml"/>
+            </f:facet>
+        </p:menubar>
+    </h:form>
+</h:body>
+</html>
