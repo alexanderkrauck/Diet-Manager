@@ -1,0 +1,443 @@
+@import url('http://fonts.googleapis.com/css?family=Exo:400,300,500,800&subset=latin,latin-ext');
+
+body ::selection {
+    background: none; /* WebKit/Blink Browsers */
+}
+
+body ::-moz-selection {
+    background: none; /* Gecko Browsers */
+}
+
+#contentinner ::selection {
+    background: rgba(52, 73, 94, 0.23); /* WebKit/Blink Browsers */
+}
+
+#contentinner ::-moz-selection {
+    background: rgba(52, 73, 94, 0.23); /* Gecko Browsers */
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: #E9F2F2;
+    font-family: Exo, sans-serif;
+    width: 100%;
+    margin: 0;
+    height: 71%;
+    margin-top: 1%;
+    overflow: hidden;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    -webkit-user-drag: none;
+}
+
+[required] {
+    box-shadow: none;
+}
+
+button {
+    border: none;
+    background-color: #27ae60;
+    padding: 7px 10px 7px 10px;
+    color: white;
+    font-weight: bold;
+    font-family: Exo;
+    font-size: 12px;
+    box-shadow: 0px 0px 5px 0px black;
+    transition: box-shadow 0.3s, background-color 0.3s;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+button:active {
+    box-shadow: 0px 0px 15px 0px black;
+    background-color: #2e7d32;
+}
+
+.header {
+    width: calc(50% - 225px);
+    height: 30%;
+    display: inline-block;
+}
+
+.heading {
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 25px;
+    color: #27ae60;
+}
+
+.subheading {
+    font-weight: bold;
+    font-size: 22px;
+    color: #27ae60;
+    margin-top: 30px;
+    clear: both;
+}
+
+#leftheader {
+    float: left;
+}
+
+#rightheader {
+    float: right;
+}
+
+#left {
+    float: right;
+    background-image: URL("headerimgleft.png");
+}
+
+#right {
+    float: left;
+    background-image: URL("headerimgright.png");
+}
+
+.headerimg {
+    height: 150px;
+    width: 150px;
+    background-size: 100% auto;
+}
+
+#header {
+    width: 450px;
+    display: inline-block;
+    font-size: 50px;
+    text-align: center;
+    color: #2c3e50;
+    height: 30%;
+}
+
+#header p {
+    margin: 0;
+    padding-top: 8.5%;
+}
+
+#main {
+    width: 90%;
+    margin: auto;
+    clear: both;
+    height: 100%;
+    z-index: 10;
+}
+
+#switch {
+    list-style-type: none;
+    color: #27ae60;
+    font-size: 25px;
+    float: left;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 0px 20px 0px;
+}
+
+#switch li {
+    padding: 0px 30px 0px 30px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+#switch li:hover {
+    text-decoration: underline;
+}
+
+#switchright li {
+    padding: 0px 30px 0px 30px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+
+#switchright li:hover {
+    text-decoration: underline;
+}
+
+#switchright {
+    float: right;
+    list-style-type: none;
+    color: #27ae60;
+    font-size: 25px;
+    display: inline-block;
+    margin: 0;
+    padding: 0px 0px 20px 0px;
+
+}
+
+#content {
+    background-color: #e4f1fe;
+    width: 96%;
+    clear: both;
+    padding: 0 2% 0 2%;
+    height: calc(100% - 15px);
+    box-shadow: 0px 3px 10px 2px grey inset;
+    border-radius: 5px;
+}
+
+#contentmiddle {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#contentinner {
+    width: 100%;
+    height: 100%;
+    padding-right: 30px;
+    -moz-user-select: text;
+    -khtml-user-select: auto;
+    -webkit-user-select: auto;
+    -o-user-select: auto;
+    -webkit-user-drag: auto;
+    overflow: auto;
+}
+
+.section {
+    padding: 10px 20px 10px 20px;
+}
+
+.section:first-child {
+    margin-top: 5px;
+}
+
+.group {
+    margin-top: 35px;
+    position: relative;
+    width: 100%;
+}
+
+.group2 {
+    margin-top: 15px;
+    position: relative;
+    width: 33%;
+    display: inline-block;
+}
+
+input {
+    font-size: 18px;
+    font-family: Exo;
+    padding: 10px 0px 10px 0px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #757575;
+    background-color: transparent;
+}
+
+input:focus {
+    outline: none;
+}
+
+input:focus ~ label, input:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    color: #27ae60;
+}
+
+select {
+    font-size: 18px;
+    font-family: Exo;
+    width: 100%;
+    padding: 10px 0px 10px 0px;
+    background-color: transparent;
+    box-shadow: none;
+    border: none;
+    margin-top: 25px;
+    border-bottom: 1px solid #757575;
+}
+
+select:focus {
+    outline: none;
+}
+
+select:focus ~ label, select:valid ~ label {
+    top: -5px;
+    font-size: 11px;
+    color: #27ae60;
+}
+
+label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    top: 10px;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.bar:before, .bar:after {
+    content: '';
+    height: 2px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background: #27ae60;
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+}
+
+.bar:before {
+    left: 50%;
+}
+
+.bar:after {
+    right: 50%;
+}
+
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+    width: 50%;
+}
+
+select:focus ~ .bar:before, select:focus ~ .bar:after {
+    width: 50%;
+}
+
+.highlight {
+    position: absolute;
+    height: 60%;
+    width: 0px;
+    top: 25%;
+    left: 0;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+input:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+select:focus ~ .highlight {
+    -webkit-animation: inputHighlighter 0.3s ease;
+    -moz-animation: inputHighlighter 0.3s ease;
+    animation: inputHighlighter 0.3s ease;
+}
+
+@-webkit-keyframes inputHighlighter {
+    from {
+        background: #27ae60;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@-moz-keyframes inputHighlighter {
+    from {
+        background: #27ae60;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+@keyframes inputHighlighter {
+    from {
+        background: #27ae60;
+    }
+    to {
+        width: 0;
+        background: transparent;
+    }
+}
+
+.button_submit {
+    float: right;
+    margin: 10px 0px 0px 10px;
+}
+
+#profile_label_birthdate {
+    top: -5px;
+    font-size: 14px;
+    color: #27ae60;
+    position: absolute;
+}
+
+.profile_button_gender {
+    margin-top: 35px;
+    width: calc(50% - 10px);
+}
+
+.profile_button_gender_not {
+    background-color: transparent;
+    color: black;
+}
+
+#piechart {
+    float: right;
+}
+
+#piechart rect {
+    fill: transparent;
+}
+
+#today_div_left {
+    float: left;
+    width: 60%;
+}
+
+#today_div_left div {
+    width: 100%;
+    background-color: #ecf0f1;
+    box-shadow: 0px 0px 5px 0px grey;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+#today_div_left table {
+    width: 100%;
+}
+
+#today_div_left thead {
+    height: 40px;
+    color: #555;
+}
+
+#today_div_left thead th {
+    font-size: 12px;
+    text-align: right;
+}
+
+#today_div_left tbody th {
+    font-weight: 500;
+    text-align: right;
+}
+
+#today_div_left tbody th:first-child {
+    font-weight: 500;
+    text-align: left;
+}
+
+#today_div_left thead th:first-child {
+    text-align: left;
+}
+
+.table_header {
+
+}
+
+.today_img_trash {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+
+}
