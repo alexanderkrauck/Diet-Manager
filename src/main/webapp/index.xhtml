@@ -1,6 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough" xmlns:f="http://xmlns.jcp.org/jsf/core">
-
+<html
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:f="http://xmlns.jcp.org/jsf/core">
+<p:dataList value="#{indexController.targetList}" var="target" type="ordered">
+    <f:facet name="header">
+        Targets
+    </f:facet>
+    #{target.multiplier}
+</p:dataList>
 </html>
