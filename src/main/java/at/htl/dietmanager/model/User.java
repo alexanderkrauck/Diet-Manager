@@ -1,5 +1,7 @@
 package at.htl.dietmanager.model;
 
+import at.htl.dietmanager.model.enums.Gender;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -22,21 +24,24 @@ public class User {
     private String password;
     @Column(name = "U_EMAIL")
     private String email;
-    @Column(name = "U_SEX")
-    private boolean sex;
+    @Column(name = "U_GENDER")
+    private Gender gender;
     @Column(name = "U_HEIGHT")
-    private int height;
+    private float height;
     @Column(name = "U_WEIGHT")
-    private int weight;
+    private float weight;
     @Column(name = "U_BIRTHDATE")
     private LocalDate birthDate;
 
 
-    public User(String userName, String password, String email, Target target) {
+    public User(String userName, String password, String email, float height, float weight, Gender gender, Target target) {
         this.userName = userName;
         this.password = password;
         this.email = email;
-        //this.target = target;
+        this.height = height;
+        this.weight = weight;
+        this.gender = gender;
+        this.target = target;
     }
     public User(){}
 
@@ -44,13 +49,13 @@ public class User {
         return id;
     }
 
-    //public Target getTarget() {
-    //    return target;
-    //}
+    public Target getTarget() {
+        return target;
+    }
 
-    //public void setTarget(Target target) {
-    //    this.target = target;
-    //}
+    public void setTarget(Target target) {
+        this.target = target;
+    }
 
     public String getUserName() {
         return userName;
@@ -76,27 +81,27 @@ public class User {
         this.email = email;
     }
 
-    public boolean isSex() {
-        return sex;
+    public Gender isGender() {
+        return gender;
     }
 
-    public void setSex(boolean sex) {
-        this.sex = sex;
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 
-    public int getHeight() {
+    public float getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(float height) {
         this.height = height;
     }
 
-    public int getWeight() {
+    public float getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    public void setWeight(float weight) {
         this.weight = weight;
     }
 

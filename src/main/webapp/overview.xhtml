@@ -11,14 +11,12 @@
         <!--<p:growl id="messages"/>-->
 
         <p:menubar>
+            <p:menuitem value="Overview" icon="fa fa-eye"/>
             <p:menuitem value="Home" icon="fa fa-home"/>
             <p:menuitem value="About" url="/faces/about.xhtml" icon="fa fa-info-circle"/>
 
             <f:facet name="options">
-                <p:inputText value="#{logInController.username}" style="margin-right:4px" placeholder="Username"/>
-                <p:inputText value="#{logInController.password}" style="margin-right:4px" placeholder="Password"/>
-                <p:commandButton style="margin-right:15px" action="#{logInController.login}" value="Login" icon="fa fa-male"/>
-                <p:button type="button" value="Sign Up" icon="fa fa-child" outcome="/faces/signup.xhtml"/>
+                <p:button type="button" value="Sign Up" icon="fa fa-sign-out-alt" outcome="/faces/home.xhtml"/>
             </f:facet>
         </p:menubar>
     </h:form>

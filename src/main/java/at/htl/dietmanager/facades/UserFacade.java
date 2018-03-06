@@ -43,6 +43,14 @@ public class UserFacade {
         }
     }
 
+    public User getUserByUsernameAndPassword(String username, String password) {
+        try {
+            return (User) entityManager.createQuery("select u from User u where u.userName = '" + username + "' AND u.password = '" + password + "'").getSingleResult();
+        } catch (Exception ex) {
+            return null;
+        }
+    }
+
     public void update(User user) {
         entityManager.merge(user);
     }

@@ -39,4 +39,20 @@ public class Target {
     public void setMultiplier(float multiplier) {
         this.multiplier = multiplier;
     }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
