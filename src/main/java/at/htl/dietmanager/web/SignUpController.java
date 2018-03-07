@@ -1,8 +1,10 @@
 package at.htl.dietmanager.web;
 
-import at.htl.dietmanager.facades.TargetFacade;
+import at.htl.dietmanager.facades.GoalFacade;
+import at.htl.dietmanager.facades.PalFacade;
 import at.htl.dietmanager.facades.UserFacade;
-import at.htl.dietmanager.model.Target;
+import at.htl.dietmanager.model.Goal;
+import at.htl.dietmanager.model.Pal;
 import at.htl.dietmanager.model.User;
 import at.htl.dietmanager.model.enums.Gender;
 import org.primefaces.event.FlowEvent;
@@ -20,14 +22,19 @@ import java.util.List;
 
 @ManagedBean
 @SessionScoped
-public class SignInController {
+public class SignUpController {
+
     @Inject
     private UserFacade userFacade;
 
     @Inject
-    private TargetFacade targetFacade;
+    private GoalFacade goalFacade;
 
-    private List<Target> targetList;
+    @Inject
+    private PalFacade palFacade;
+
+    private List<Goal> goalList;
+    private List<Pal> palList;
 
     private String username = "";
     private String password = "";
@@ -36,24 +43,32 @@ public class SignInController {
     private float height;
     private LocalDate dateOfBirth = new Date(System.currentTimeMillis() - (long) 1000 * (long) 60 * (long) 60 * (long) 24 * (long) 365 * (long) 18).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
     private Gender gender;
-    private Target selectedTarget = null;
-    private String selectedTargetString = null;
+    private Goal selectedGoal = null;
+    private Pal selectedPal = null;
+    private String selectedPalString = null;
+    private String selectedGoalString = null;
 
     private Date minDate = new Date(System.currentTimeMillis() - (long) 1000 * (long) 60 * (long) 60 * (long) 24 * (long) 365 * (long) 120);
     private Date maxDate = new Date(System.currentTimeMillis() - (long) 1000 * (long) 60 * (long) 60 * (long) 24 * (long) 365 * (long) 8);
 
-    public SignInController() {
+    public SignUpController() {
     }
 
     @PostConstruct
     public void postConstruct() {
         FacesContext.getCurrentInstance().getExternalContext().getSession(true);
-        if (targetList == null)
-            targetList = targetFacade.getAllTargets();
+        if (goalList == null)
+            goalList = goalFacade.getAllGoals();
+        if (palList == null)
+            palList = palFacade.getAllPals();
     }
 
-    public List<Target> getTargetList() {
-        return targetList;
+    public List<Goal> getGoalList() {
+        return goalList;
+    }
+
+    public List<Pal> getPalList() {
+        return palList;
     }
 
     public void login() {
@@ -126,9 +141,11 @@ public class SignInController {
     }
 
     public void createUser() {
-        userFacade.addUser(new User(username, password, email, height, weight, gender, selectedTarget));
+        userFacade.addUser(new User(username, password, email, height, weight, gender, selectedGoal, selectedPal, dateOfBirth));
+
         try {
             FacesContext.getCurrentInstance().getExternalContext().redirect("/Diet-Manager/faces/home.xhtml");
+
         } catch (IOException ex) {
 
         }
@@ -142,19 +159,35 @@ public class SignInController {
         return maxDate;
     }
 
-    public Target getSelectedTarget() {
-        return selectedTarget == null ? (selectedTarget = targetList.get(0)) : selectedTarget;
+    public Goal getSelectedGoal() {
+        return selectedGoal == null ? (selectedGoal = goalList.get(0)) : selectedGoal;
     }
 
-    public String getSelectedTargetString() {
-        return selectedTarget == null ? (selectedTarget = targetList.get(0)).getDesignation() : selectedTarget.getDesignation();
+    public String getSelectedGoalString() {
+        return selectedGoal == null ? (selectedGoal = goalList.get(0)).getDesignation() : selectedGoal.getDesignation();
     }
 
-    public void setSelectedTargetString(String selectedTarget) {
-        System.out.println(selectedTarget);
-        for (Target target : targetList) {
-            if (target.getId() == Integer.parseInt((String) selectedTarget)) {
-                this.selectedTarget = target;
+    public void setSelectedGoalString(String selectedTarget) {
+        for (Goal target : goalList) {
+            if (target.getId() == Integer.parseInt(selectedTarget)) {
+                this.selectedGoal = target;
+                break;
+            }
+        }
+    }
+
+    public Pal getSelectedPal() {
+        return selectedPal == null ? (selectedPal = palList.get(0)) : selectedPal;
+    }
+
+    public String getSelectedPalString() {
+        return selectedPal == null ? (selectedPal = palList.get(0)).getDesignation() : selectedPal.getDesignation();
+    }
+
+    public void setSelectedPalString(String selectedPal) {
+        for (Pal pal : palList) {
+            if (pal.getId() == Integer.parseInt(selectedPal)) {
+                this.selectedPal = pal;
                 break;
             }
         }

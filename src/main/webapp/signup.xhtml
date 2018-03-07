@@ -15,7 +15,7 @@
             <f:facet name="options">
                 <p:inputText style="margin-right:4px" placeholder="Username"/>
                 <p:inputText style="margin-right:4px" placeholder="Password"/>
-                <p:commandButton type="button" value="Login" icon="fa fa-male" actionListener="#{signInController.login}"/>
+                <p:commandButton type="button" value="Login" icon="fa fa-male" actionListener="#{signUpController.login}"/>
             </f:facet>
         </p:menubar>
     </h:form>
@@ -31,25 +31,25 @@
         }
     </style>
     <h:form>
-        <p:wizard flowListener="#{signInController.onFlowProcess}">
+        <p:wizard flowListener="#{signUpController.onFlowProcess}">
             <p:tab id="basic" title="Basic Data">
                 <p:panel header="Basic Data">
                     <p:messages/>
                     <h:panelGrid columns="2" columnClasses="label, value">
                         <h:outputText value="Username: "/>
-                        <p:inputText value="#{signInController.username}" label="Username" validatorMessage="Please type in a username with 4 to 16 characters!">
+                        <p:inputText value="#{signUpController.username}" label="Username" validatorMessage="Please type in a username with 4 to 16 characters!">
                             <f:validateLength minimum="4" maximum="16"/>
                         </p:inputText>
 
                         <h:outputText value="Email: "/>
-                        <p:inputText value="#{signInController.email}" label="Email" validatorMessage="Please type in a valid email-address!">
+                        <p:inputText value="#{signUpController.email}" label="Email" validatorMessage="Please type in a valid email-address!">
                             <f:validateRegex
                                     pattern=
                                             "(?:[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&amp;'*+/=?^_`{|}~-]+)*|&quot;(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*&quot;)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])"/>
                         </p:inputText>
 
                         <h:outputText value="Password: "/>
-                        <p:password value="#{signInController.password}" validatorMessage="Please type in a password with 4 to 16 characters!">
+                        <p:password value="#{signUpController.password}" validatorMessage="Please type in a password with 4 to 16 characters!">
                             <f:validateLength minimum="4" maximum="16"/>
                         </p:password>
                     </h:panelGrid>
@@ -61,20 +61,20 @@
                     <p:messages/>
                     <h:panelGrid columns="2" columnClasses="label, value">
                         <h:outputText value="Height: "/>
-                        <p:inputNumber value="#{signInController.height}" symbol="cm" symbolPosition="s"
+                        <p:inputNumber value="#{signUpController.height}" symbol="cm" symbolPosition="s"
                                        decimalSeparator="," thousandSeparator="." validatorMessage="Please type in a height between 130 and 240 centimeters!">
                             <f:validateLongRange minimum="130" maximum="240"/></p:inputNumber>
 
                         <h:outputText value="Weight: "/>
-                        <p:inputNumber value="#{signInController.weight}" symbol="kg" symbolPosition="s"
+                        <p:inputNumber value="#{signUpController.weight}" symbol="kg" symbolPosition="s"
                                        decimalSeparator="," thousandSeparator="." validatorMessage="Please type in a weight between 30 and 300 kilogramms!">
                             <f:validateLongRange minimum="30" maximum="300"/></p:inputNumber>
 
                         <h:outputText value="Date of Birth: "/>
-                        <p:calendar mindate="#{signInController.minDate}" maxdate="#{signInController.maxDate}" id="mask" pattern="dd-MM-yyyy" mask="true" value="#{signInController.dateOfBirth}"/>
+                        <p:calendar mindate="#{signUpController.minDate}" maxdate="#{signUpController.maxDate}" id="mask" pattern="dd-MM-yyyy" mask="true" value="#{signUpController.dateOfBirth}"/>
 
                         <h:outputText value="Gender: "/>
-                        <p:selectOneRadio value="#{signInController.gender}">
+                        <p:selectOneRadio value="#{signUpController.gender}">
                             <f:selectItem itemLabel="Male" itemValue="m"/>
                             <f:selectItem itemLabel="Female" itemValue="f"/>
                         </p:selectOneRadio>
@@ -82,18 +82,26 @@
                 </p:panel>
             </p:tab>
 
-            <p:tab id="target" title="Target">
-                <p:panel header="Target">
+            <p:tab id="additional" title="Additional Information">
+                <p:panel header="Additional Information">
                     <p:messages/>
-                    <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:panelGrid columns="3" columnClasses="label, value, label">
                         <h:outputText value="Target: "/>
-                        <p:selectOneMenu style="width:125px" value="#{signInController.selectedTargetString}">
-                            <c:forEach items="#{signInController.targetList}" var="target">
+                        <p:selectOneMenu style="width:125px" value="#{signUpController.selectedGoalString}">
+                            <c:forEach items="#{signUpController.goalList}" var="target">
                                 <f:selectItem itemLabel="#{target.designation}" itemValue="#{target.id}"/>
                             </c:forEach>
-                            <p:ajax event="change" update="description"/>
+                            <p:ajax event="change" update="targetDescription"/>
                         </p:selectOneMenu>
-                        <h:outputText id="description" value="#{signInController.selectedTarget.description}"></h:outputText>
+                        <h:outputText id="targetDescription" value="#{signUpController.selectedGoal.description}"/>
+                        <h:outputText value="Pal: "/>
+                        <p:selectOneMenu style="width:125px" value="#{signUpController.selectedPalString}">
+                            <c:forEach items="#{signUpController.palList}" var="pal">
+                                <f:selectItem itemLabel="#{pal.designation}" itemValue="#{pal.id}"/>
+                            </c:forEach>
+                            <p:ajax event="change" update="palDescription"/>
+                        </p:selectOneMenu>
+                        <h:outputText id="palDescription" value="#{signUpController.selectedPal.description}"/>
                     </h:panelGrid>
                 </p:panel>
             </p:tab>
@@ -103,36 +111,38 @@
                     <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Username: "/>
-                            <h:outputText value="#{signInController.username}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.username}" styleClass="outputLabel"/>
 
                             <h:outputText value="Email: "/>
-                            <h:outputText value="#{signInController.email}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.email}" styleClass="outputLabel"/>
 
                             <h:outputText value="Password: "/>
-                            <h:outputText value="#{signInController.password}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.password}" styleClass="outputLabel"/>
                         </h:panelGrid>
 
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Height: "/>
-                            <h:outputText value="#{signInController.height}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.height}" styleClass="outputLabel"/>
 
                             <h:outputText value="Weight: "/>
-                            <h:outputText value="#{signInController.weight}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.weight}" styleClass="outputLabel"/>
 
                             <h:outputText value="Date of Birth: "/>
-                            <h:outputText value="#{signInController.dateOfBirth}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.dateOfBirth}" styleClass="outputLabel"/>
 
                             <h:outputText value="Gender: "/>
-                            <h:outputText value="#{signInController.gender}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.gender}" styleClass="outputLabel"/>
                         </h:panelGrid>
 
                         <h:panelGrid columns="2" columnClasses="label, value">
                             <h:outputText value="Target: "/>
-                            <h:outputText value="#{signInController.selectedTarget.designation}" styleClass="outputLabel"/>
+                            <h:outputText value="#{signUpController.selectedGoal.designation}" styleClass="outputLabel"/>
+                            <h:outputText value="Pal: "/>
+                            <h:outputText value="#{signUpController.selectedPal.designation}" styleClass="outputLabel"/>
                         </h:panelGrid>
                     </h:panelGrid>
 
-                    <p:commandButton value="Submit" actionListener="#{signInController.createUser}" process="@this"/>
+                    <p:commandButton value="Submit" actionListener="#{signUpController.createUser}" process="@this"/>
                 </p:panel>
             </p:tab>
         </p:wizard>

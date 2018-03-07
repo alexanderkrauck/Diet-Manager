@@ -15,9 +15,9 @@
             <p:menuitem value="About" url="/faces/about.xhtml" icon="fa fa-info-circle"/>
 
             <f:facet name="options">
-                <p:inputText value="#{logInController.username}" style="margin-right:4px" placeholder="Username"/>
-                <p:inputText value="#{logInController.password}" style="margin-right:4px" placeholder="Password"/>
-                <p:commandButton style="margin-right:15px" action="#{logInController.login}" value="Login" icon="fa fa-male"/>
+                <p:inputText value="#{userController.username}" style="margin-right:4px" placeholder="Username"/>
+                <p:inputText value="#{userController.password}" style="margin-right:4px" placeholder="Password"/>
+                <p:commandButton style="margin-right:15px" action="#{userController.signIn}" value="Login" icon="fa fa-male"/>
                 <p:button type="button" value="Sign Up" icon="fa fa-child" outcome="/faces/signup.xhtml"/>
             </f:facet>
         </p:menubar>

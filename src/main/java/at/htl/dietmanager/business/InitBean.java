@@ -1,10 +1,8 @@
 package at.htl.dietmanager.business;
 
-import at.htl.dietmanager.facades.EatenFoodFacade;
-import at.htl.dietmanager.facades.FoodFacade;
-import at.htl.dietmanager.facades.TargetFacade;
-import at.htl.dietmanager.facades.UserFacade;
-import at.htl.dietmanager.model.Target;
+import at.htl.dietmanager.facades.*;
+import at.htl.dietmanager.model.Goal;
+import at.htl.dietmanager.model.Pal;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -16,7 +14,10 @@ import javax.inject.Inject;
 public class InitBean {
 
     @Inject
-    TargetFacade targetFacade;
+    GoalFacade goalFacade;
+
+    @Inject
+    PalFacade palFacade;
 
     @Inject
     UserFacade userFacade;
@@ -29,7 +30,9 @@ public class InitBean {
 
     @PostConstruct
     private void init() {
-        targetFacade.addTarget(new Target(1, "Normal Diet", "The completely basic healthy diet"));
-        targetFacade.addTarget(new Target(1.2f, "Muscular Diet", "A diet for muscular bodies"));
+        goalFacade.addGoal(new Goal(1, "Normal Diet", "The completely basic healthy diet"));
+        goalFacade.addGoal(new Goal(1.2f, "Muscular Diet", "A diet for muscular bodies"));
+        palFacade.addGoal(new Pal(1.2f, "Bit of sport", "A bit of that sport thing"));
+
     }
 }
