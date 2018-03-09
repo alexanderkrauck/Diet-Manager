@@ -1,10 +1,12 @@
 package at.htl.dietmanager.model;
 
+import at.htl.dietmanager.facades.EatenFoodFacade;
 import at.htl.dietmanager.model.enums.Gender;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 @Entity
 @Table(name = "DM_USER")
@@ -38,6 +40,9 @@ public class User {
     @Convert(converter = LocalDateAttributeConverter.class)
     @Column(name = "U_DATEOFBIRTH")
     private LocalDate dateOfBirth;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+    private List<EatenFood> eatenFoodList;
 
 
     public User(String userName, String password, String email, float height, float weight, Gender gender, Goal goal, Pal pal, LocalDate dateOfBirth) {
@@ -124,21 +129,26 @@ public class User {
     }
 
 
-    public static float getBMI(User user) {
-        return user.weight / ((float) Math.pow(user.height / 100, 2));
+    public float getBMI() {
+        return weight / ((float) Math.pow(height / 100, 2));
     }
 
-    public static float getDailyCalorieGoal(User user) {
-        /*Grundumsatz bei Männern (Kalorien je Tag)
+    public float getDailyCalorieGoal() {
+        return (gender == Gender.MALE
+                ? 66.47f + (13.7f * weight) + (5f * height) - (6.8f * dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS))
+                : 655.1f + (9.6f * weight) + (1.8f * height) - (4.7f * dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS)))
+                * pal.getMultiplier() * goal.getMultiplier();
+    }
 
-66,47 + (13,7 * Körpergewicht in kg) + (5 * Körpergröße in cm) – (6,8 * Alter in Jahren) = Grundumsatz
-Grundumsatz bei Frauen (Kalorien je Tag)
-
-655,1 + (9,6 * Körpergewicht in kg) + (1,8 * Körpergröße in cm) – (4,7 * Alter in Jahren) = Grundumsatz*/
-
-        return (user.gender == Gender.MALE
-                ? 66.47f + (13.7f * user.weight) + (5f * user.height) - (6.8f * user.dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS))
-                : 655.1f + (9.6f * user.weight) + (1.8f * user.height) - (4.7f * user.dateOfBirth.until(LocalDate.now(), ChronoUnit.YEARS)))
-                * user.pal.getMultiplier() * user.goal.getMultiplier();
+    public float getTodayEatenCalories(EatenFoodFacade eatenFoodFacade) {
+        List<EatenFood> todayEatenFood = eatenFoodFacade.getTodayEatenFood();
+        float sum = 0;
+        for (EatenFood eatenFood : todayEatenFood) {
+            if (eatenFood.getFood() == null)
+                sum += eatenFood.getFood().getKcal() * eatenFood.getAmount();
+            else
+                sum += eatenFood.getAmount();
+        }
+        return sum;
     }
 }

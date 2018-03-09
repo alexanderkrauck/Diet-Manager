@@ -22,6 +22,11 @@ public class EatenFood {
     @JoinColumn(name = "F_ID")
     private Food food;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "U_ID")
+    private User user;
+
+
     public EatenFood() {
     }
 

@@ -4,13 +4,17 @@ import at.htl.dietmanager.facades.EatenFoodFacade;
 import at.htl.dietmanager.facades.FoodFacade;
 import at.htl.dietmanager.facades.GoalFacade;
 import at.htl.dietmanager.facades.UserFacade;
+import at.htl.dietmanager.model.EatenFood;
 import at.htl.dietmanager.model.User;
+import org.primefaces.model.chart.PieChartModel;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 @ManagedBean
 @SessionScoped
@@ -29,14 +33,17 @@ public class UserController {
 
     private String username;
     private String password;
-    User user;
+    private User user;
+    private PieChartModel caloriesPieChartModel;
+    public List<EatenFood> todayEatenFoodList = new LinkedList<>();
 
     public void signIn() {
         user = userFacade.getUserByUsernameAndPassword(username, password);
+        createPieChartModel();
+        //todayEatenFoodList = eatenFoodFacade.getTodayEatenFood();
         if (user != null) {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Diet-Manager/faces/overview.xhtml");
-
             } catch (IOException ex) {
 
             }
@@ -45,6 +52,15 @@ public class UserController {
 
     public void addEatenFood() {
 
+    }
+
+    private void createPieChartModel() {
+        caloriesPieChartModel = new PieChartModel();
+        //float allCalories = User.getDailyCalorieGoal(user);
+        caloriesPieChartModel.set("Eaten Calories", 10);
+        caloriesPieChartModel.set("Free Calories", 10);
+        caloriesPieChartModel.setTitle("Todays Calorie Chart");
+        caloriesPieChartModel.setLegendPosition("e");
     }
 
 
@@ -66,5 +82,15 @@ public class UserController {
 
     public boolean isLoggedIn() {
         return user != null;
+    }
+
+    public PieChartModel getCaloriesPieChartModel() {
+        if (caloriesPieChartModel == null)
+            createPieChartModel();
+        return caloriesPieChartModel;
+    }
+
+    public void setCaloriesPieChartModel(PieChartModel caloriesPieChartModel) {
+        this.caloriesPieChartModel = caloriesPieChartModel;
     }
 }

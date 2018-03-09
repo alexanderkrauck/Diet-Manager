@@ -5,6 +5,7 @@ import at.htl.dietmanager.model.EatenFood;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 @Stateless
 public class EatenFoodFacade {
@@ -16,7 +17,7 @@ public class EatenFoodFacade {
         entityManager.persist(eatenFood);
     }
 
-    public void getTodayEatenFood() {
-        entityManager.createQuery("SELECT ef FROM DM_EATEN_FOOD ef WHERE DATE(ef.EF_EATEN_DATE_TIME) = CURRENT_DATE");
+    public List<EatenFood> getTodayEatenFood() {
+        return entityManager.createQuery("SELECT ef FROM DM_EATEN_FOOD ef WHERE DATE(ef.EF_EATEN_DATE_TIME) = CURRENT_DATE").getResultList();
     }
 }

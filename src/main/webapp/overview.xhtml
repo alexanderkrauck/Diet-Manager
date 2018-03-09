@@ -19,6 +19,9 @@
                 <p:button type="button" value="Sign Up" icon="fa fa-sign-out-alt" outcome="/faces/home.xhtml"/>
             </f:facet>
         </p:menubar>
+
+
+        <p:chart type="pie" model="#{userController.caloriesPieChartModel}" style="width:400px;height:300px"/>
     </h:form>
 </h:body>
 </html>
