@@ -35,12 +35,12 @@ public class UserController {
     private String password;
     private User user;
     private PieChartModel caloriesPieChartModel;
-    public List<EatenFood> todayEatenFoodList = new LinkedList<>();
+    private List<EatenFood> todayEatenFoodList = new LinkedList<>();
 
     public void signIn() {
         user = userFacade.getUserByUsernameAndPassword(username, password);
         createPieChartModel();
-        //todayEatenFoodList = eatenFoodFacade.getTodayEatenFood();
+        todayEatenFoodList = eatenFoodFacade.getTodayEatenFood();
         if (user != null) {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Diet-Manager/faces/overview.xhtml");
@@ -92,5 +92,13 @@ public class UserController {
 
     public void setCaloriesPieChartModel(PieChartModel caloriesPieChartModel) {
         this.caloriesPieChartModel = caloriesPieChartModel;
+    }
+
+    public List<EatenFood> getTodayEatenFoodList() {
+        return todayEatenFoodList;
+    }
+
+    public void setTodayEatenFoodList(List<EatenFood> todayEatenFoodList) {
+        this.todayEatenFoodList = todayEatenFoodList;
     }
 }
