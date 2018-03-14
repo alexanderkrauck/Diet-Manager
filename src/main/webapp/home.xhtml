@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:head>
     <link rel="shortcut icon" type="image/x-icon" href="headerimgleft.png"/>
     <title>Diet-Manager</title>
@@ -11,14 +12,25 @@
         <!--<p:growl id="messages"/>-->
 
         <p:menubar>
-            <p:menuitem value="Home" icon="fa fa-home"/>
+            <p:menuitem style="background-color: lightblue" value="Home" icon="fa fa-home"/>
             <p:menuitem value="About" url="/faces/about.xhtml" icon="fa fa-info-circle"/>
+            <c:if test="#{userController.loggedIn}">
+                <p:menuitem value="Overview" url="/faces/overview.xhtml" icon="fa fa-eye"/>
+            </c:if>
 
-            <f:facet name="options">
-                <p:inputText value="#{userController.username}" style="margin-right:4px" placeholder="Username"/>
-                <p:inputText value="#{userController.password}" style="margin-right:4px" placeholder="Password"/>
-                <p:commandButton style="margin-right:15px" action="#{userController.signIn}" value="Login" icon="fa fa-male"/>
-                <p:button type="button" value="Sign Up" icon="fa fa-child" outcome="/faces/signup.xhtml"/>
+            <f:facet name="options" id="toolbar_test">
+                <c:if test="#{!userController.loggedIn}">
+                    <p:inputText id="test_2" value="#{userController.username}" style="margin-right:4px" placeholder="Username"/>
+                    <p:inputText value="#{userController.password}" style="margin-right:4px" placeholder="Password"/>
+                    <p:commandButton style="margin-right:15px" action="#{userController.signIn}" value="Login" icon="fa fa-male"/>
+                    <p:button type="button" value="Sign Up" icon="fa fa-child" outcome="/faces/signup.xhtml"/>
+                </c:if>
+                <c:if test="#{userController.loggedIn}">
+                    <h:outputText style="margin-right: 15px" value="Signed in as #{userController.user.userName}"/>
+                    <p:commandButton value="Sign Out" icon="fa fa-child" action="#{userController.signOut}">
+                        <f:ajax execute="@form" render="test_2"/>
+                    </p:commandButton>
+                </c:if>
             </f:facet>
         </p:menubar>
     </h:form>

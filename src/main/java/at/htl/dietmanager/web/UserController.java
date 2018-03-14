@@ -10,8 +10,10 @@ import org.primefaces.model.chart.PieChartModel;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +42,7 @@ public class UserController {
     public void signIn() {
         user = userFacade.getUserByUsernameAndPassword(username, password);
         createPieChartModel();
-        todayEatenFoodList = eatenFoodFacade.getTodayEatenFood();
+        //todayEatenFoodList = eatenFoodFacade.getTodayEatenFood();
         if (user != null) {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Diet-Manager/faces/overview.xhtml");
@@ -50,15 +52,26 @@ public class UserController {
         }
     }
 
+    public void signOut() {
+        user = null;
+        try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+        } catch (IOException ex) {
+
+        }
+    }
+
     public void addEatenFood() {
 
     }
 
     private void createPieChartModel() {
         caloriesPieChartModel = new PieChartModel();
-        //float allCalories = User.getDailyCalorieGoal(user);
-        caloriesPieChartModel.set("Eaten Calories", 10);
-        caloriesPieChartModel.set("Free Calories", 10);
+        float allCalories = user.getDailyCalorieGoal();
+        float eatenCalories = user.getTodayEatenCalories();
+        caloriesPieChartModel.set("Eaten Calories", eatenCalories);
+        caloriesPieChartModel.set("Free Calories", allCalories - eatenCalories);
         caloriesPieChartModel.setTitle("Todays Calorie Chart");
         caloriesPieChartModel.setLegendPosition("e");
     }
@@ -100,5 +113,9 @@ public class UserController {
 
     public void setTodayEatenFoodList(List<EatenFood> todayEatenFoodList) {
         this.todayEatenFoodList = todayEatenFoodList;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

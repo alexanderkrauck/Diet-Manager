@@ -1,6 +1,5 @@
 package at.htl.dietmanager.model;
 
-import at.htl.dietmanager.facades.EatenFoodFacade;
 import at.htl.dietmanager.model.enums.Gender;
 
 import javax.persistence.*;
@@ -140,10 +139,9 @@ public class User {
                 * pal.getMultiplier() * goal.getMultiplier();
     }
 
-    public float getTodayEatenCalories(EatenFoodFacade eatenFoodFacade) {
-        List<EatenFood> todayEatenFood = eatenFoodFacade.getTodayEatenFood();
+    public float getTodayEatenCalories() {
         float sum = 0;
-        for (EatenFood eatenFood : todayEatenFood) {
+        for (EatenFood eatenFood : eatenFoodList) {
             if (eatenFood.getFood() == null)
                 sum += eatenFood.getFood().getKcal() * eatenFood.getAmount();
             else

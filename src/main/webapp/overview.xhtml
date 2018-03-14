@@ -11,12 +11,15 @@
         <!--<p:growl id="messages"/>-->
 
         <p:menubar>
-            <p:menuitem value="Overview" icon="fa fa-eye"/>
-            <p:menuitem value="Home" icon="fa fa-home"/>
+            <p:menuitem value="Home" icon="fa fa-home" url="/faces/home.xhtml"/>
             <p:menuitem value="About" url="/faces/about.xhtml" icon="fa fa-info-circle"/>
+            <p:menuitem style="background-color: lightblue" value="Overview" icon="fa fa-eye"/>
 
             <f:facet name="options">
-                <p:button type="button" value="Sign Up" icon="fa fa-sign-out-alt" outcome="/faces/home.xhtml"/>
+                <h:outputText style="margin-right: 15px" value="Signed in as #{userController.user.userName}"/>
+                <p:commandButton value="Sign Out" icon="fa fa-child" action="#{userController.signOut}">
+                    <f:ajax execute="@form" render="test_2"/>
+                </p:commandButton>
             </f:facet>
         </p:menubar>
 

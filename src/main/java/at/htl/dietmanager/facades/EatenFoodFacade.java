@@ -18,6 +18,6 @@ public class EatenFoodFacade {
     }
 
     public List<EatenFood> getTodayEatenFood() {
-        return entityManager.createQuery("SELECT ef FROM DM_EATEN_FOOD ef WHERE DATE(ef.EF_EATEN_DATE_TIME) = CURRENT_DATE").getResultList();
+        return entityManager.createQuery("SELECT ef FROM EatenFood ef WHERE DATE(EF_EATEN_DATE_TIME) = CURRENT_DATE").getResultList();
     }
 }
