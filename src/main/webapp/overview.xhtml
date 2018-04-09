@@ -38,7 +38,7 @@
 
                         <p:column headerText="Calories">
                             <c:if test="#{eatenFood.food!=null}">
-                                <h:outputText value="#{eatenFood.food.kcal*eatenFood.amount}"/>
+                                <h:outputText value="#{eatenFood.food.kcal * eatenFood.amount}"/>
                             </c:if>
                             <c:if test="#{eatenFood.food==null}">
                                 <h:outputText value="#{eatenFood.amount}"/>
@@ -59,6 +59,23 @@
                     <c:if test="#{overviewToolbarController.possibility=='CreateNewSpecifiedEatenFood'}">
                         <div>
                             <h1>Add new specified Food for Today</h1>
+                            <h:form>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <p:outputLabel for="specifiedFood" value="Food:"/>
+                                    <p:selectOneMenu id="specifiedFood" value="#{userController.newSpecifiedFoodId}">
+                                        <c:forEach items="#{userController.foodList}" var="food">
+                                            <f:selectItem itemLabel="#{food.name}" itemValue="#{food.id}"/>
+                                        </c:forEach>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel for="specifiedAmount" value="Amount: "/>
+                                    <p:inputNumber id="specifiedAmount" value="#{userController.newEatenFood.amount}"/>
+
+                                    <p:commandButton value="Reset" type="reset"/>
+                                    <p:commandButton value="Add" action="#{userController.addEatenFood}">
+                                    </p:commandButton>
+                                </h:panelGrid>
+                            </h:form>
                         </div>
                     </c:if>
                     <c:if test="#{overviewToolbarController.possibility=='CreateNewUnspecifiedEatenFood'}">

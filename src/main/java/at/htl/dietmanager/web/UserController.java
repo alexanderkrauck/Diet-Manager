@@ -5,9 +5,11 @@ import at.htl.dietmanager.facades.FoodFacade;
 import at.htl.dietmanager.facades.GoalFacade;
 import at.htl.dietmanager.facades.UserFacade;
 import at.htl.dietmanager.model.EatenFood;
+import at.htl.dietmanager.model.Food;
 import at.htl.dietmanager.model.User;
 import org.primefaces.model.chart.PieChartModel;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
@@ -39,10 +41,21 @@ public class UserController {
     private PieChartModel caloriesPieChartModel;
     private List<EatenFood> todayEatenFoodList = new LinkedList<>();
 
+    private List<Food> foodList;
+
+    private EatenFood newEatenFood = new EatenFood();
+
+    private int newSpecifiedFoodId;
+
+    @PostConstruct
+    private void postConstruct() {
+        foodList = foodFacade.getAllFoods();
+    }
+
     public void signIn() {
         user = userFacade.getUserByUsernameAndPassword(username, password);
         createPieChartModel();
-        //todayEatenFoodList = eatenFoodFacade.getTodayEatenFood();
+        todayEatenFoodList = user.getTodayEatenFoodList();
         if (user != null) {
             try {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("/Diet-Manager/faces/overview.xhtml");
@@ -63,7 +76,12 @@ public class UserController {
     }
 
     public void addEatenFood() {
-
+        for (Food f : foodList)
+            if (f.getId() == newSpecifiedFoodId)
+                newEatenFood.setFood(f);
+        newEatenFood.setUser(user);
+        todayEatenFoodList.add(newEatenFood);
+        userFacade.update(user);
     }
 
     private void createPieChartModel() {
@@ -117,5 +135,29 @@ public class UserController {
 
     public User getUser() {
         return user;
+    }
+
+    public EatenFood getNewEatenFood() {
+        return newEatenFood;
+    }
+
+    public void setNewEatenFood(EatenFood newEatenFood) {
+        this.newEatenFood = newEatenFood;
+    }
+
+    public List<Food> getFoodList() {
+        return foodList;
+    }
+
+    public void setFoodList(List<Food> foodList) {
+        this.foodList = foodList;
+    }
+
+    public int getNewSpecifiedFoodId() {
+        return newSpecifiedFoodId;
+    }
+
+    public void setNewSpecifiedFoodId(int newSpecifiedFoodId) {
+        this.newSpecifiedFoodId = newSpecifiedFoodId;
     }
 }

@@ -4,7 +4,9 @@ import at.htl.dietmanager.model.enums.Gender;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -148,5 +150,20 @@ public class User {
                 sum += eatenFood.getAmount();
         }
         return sum;
+    }
+
+    public List<EatenFood> getTodayEatenFoodList() {
+        List<EatenFood> todayEatenFoodList = new LinkedList<>();
+        for (EatenFood eatenFood : eatenFoodList) {
+            LocalDateTime todayStart = LocalDate.now().atStartOfDay();
+            if (eatenFood.getEatenDateTime().isAfter(todayStart)) {
+                todayEatenFoodList.add(eatenFood);
+            }
+        }
+        return todayEatenFoodList;
+    }
+
+    public void addEatenFood(EatenFood eatenFood) {
+        eatenFoodList.add(eatenFood);
     }
 }

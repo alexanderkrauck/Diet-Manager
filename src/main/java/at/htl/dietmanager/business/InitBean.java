@@ -1,6 +1,7 @@
 package at.htl.dietmanager.business;
 
 import at.htl.dietmanager.facades.*;
+import at.htl.dietmanager.model.Food;
 import at.htl.dietmanager.model.Goal;
 import at.htl.dietmanager.model.Pal;
 import at.htl.dietmanager.model.User;
@@ -39,5 +40,8 @@ public class InitBean {
         goalFacade.addGoal(new Goal(1.2f, "Muscular Diet", "A diet for muscular bodies"));
         palFacade.addGoal(pal);
         userFacade.addUser(new User("alex", "krauck", "alex.krauck@gmail.com", 200, 100, Gender.MALE, goal, pal, LocalDate.now()));
+
+        Food food = new Food("corn", "cornycorncorn", 400);
+        foodFacade.addFood(food);
     }
 }

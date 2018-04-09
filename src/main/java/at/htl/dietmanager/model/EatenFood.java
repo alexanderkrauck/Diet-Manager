@@ -28,12 +28,16 @@ public class EatenFood {
 
 
     public EatenFood() {
+        eatenDateTime = LocalDateTime.now();
     }
 
-    public EatenFood(int amount, LocalDateTime eatenDateTime, Food food) {
+    public EatenFood(int amount, LocalDateTime eatenDateTime, Food food, User user) {
+        this();
         this.amount = amount;
         this.eatenDateTime = eatenDateTime;
         this.food = food;
+        this.user = user;
+        user.addEatenFood(this);
     }
 
     public int getId() {
@@ -54,5 +58,22 @@ public class EatenFood {
 
     public void setFood(Food food) {
         this.food = food;
+    }
+
+    public LocalDateTime getEatenDateTime() {
+        return eatenDateTime;
+    }
+
+    public void setEatenDateTime(LocalDateTime eatenDateTime) {
+        this.eatenDateTime = eatenDateTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+        user.addEatenFood(this);
     }
 }
